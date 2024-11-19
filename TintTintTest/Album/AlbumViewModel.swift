@@ -12,12 +12,13 @@ enum LoadingState {
     case loading
     case finishedLoading
     case requestSuccess(paths: [IndexPath])
-    case requestFail
+    case requestFail(Error)
 }
 
 class AlbumViewModel {
     @Published var state: LoadingState = .finishedLoading
     var photos: [Photo] = []
+    var noMoreData:Bool = false
     private var currentPage = 1
     private var perPageCount = 60
     
@@ -27,8 +28,8 @@ class AlbumViewModel {
             guard let self = self else { return }
             self.state = .finishedLoading
             
-            if let _ = err {
-                self.state = .requestFail
+            if let err = err {
+                self.state = .requestFail(err)
             } else if let photos = photos {
                 if !photos.isEmpty {
                     let currentCount = self.photos.count
@@ -41,6 +42,8 @@ class AlbumViewModel {
                     self.state = .requestSuccess(paths: indexPaths)
                 } else {
                     //no more data
+                    self.noMoreData = true
+                    self.state = .requestSuccess(paths: [])
                 }
             }
         }

@@ -20,6 +20,7 @@ class AlbumViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: AlbumCollectionViewCell.identifier)
+        collectionView.register(AlbumFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: AlbumFooterView.identifier)
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -57,13 +58,19 @@ class AlbumViewController: UIViewController {
                 case .finishedLoading:
                     break
                 case .requestSuccess(let paths):
-                    self.collectionView.performBatchUpdates {
-                        self.collectionView.insertItems(at: paths)
+                    if viewModel.noMoreData {
+                        self.collectionView.reloadData()
+                        self.allowFetchingMore = false
+                    } else {
+                        /// 使用insert而不是reload，避免畫面閃爍
+                        self.collectionView.performBatchUpdates {
+                            self.collectionView.insertItems(at: paths)
+                        }
+                        self.allowFetchingMore = true
                     }
+                case .requestFail(let err):
                     self.allowFetchingMore = true
-                case .requestFail:
-                    self.allowFetchingMore = true
-                    break
+                    debugPrint("發生錯誤: ", err)
                 }
             }
             .store(in: &cancellables)
@@ -94,6 +101,23 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let itemsPerRow: CGFloat = 4
         let itemWidth = collectionView.frame.width / itemsPerRow
         return CGSize(width: itemWidth, height: itemWidth)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if viewModel.noMoreData {
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
+        return .zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AlbumFooterView.identifier, for: indexPath) as? AlbumFooterView else {
+                return UICollectionReusableView()
+            }
+            return footerView
+        }
+        return UICollectionReusableView()
     }
 }
 

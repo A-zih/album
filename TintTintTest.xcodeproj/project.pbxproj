@@ -18,6 +18,7 @@
 		8D55155B2CE6FD74005D7041 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8D55155A2CE6FD74005D7041 /* Alamofire */; };
 		8D5515602CE6FF2D005D7041 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D55155F2CE6FF2D005D7041 /* Photo.swift */; };
 		8D5515632CEB1A4D005D7041 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5515622CEB1A4D005D7041 /* AlbumCollectionViewCell.swift */; };
+		8D5515662CEB40D9005D7041 /* AlbumFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5515652CEB40D9005D7041 /* AlbumFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		8D5515572CE6FD39005D7041 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		8D55155F2CE6FF2D005D7041 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		8D5515622CEB1A4D005D7041 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		8D5515652CEB40D9005D7041 /* AlbumFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				8D5515622CEB1A4D005D7041 /* AlbumCollectionViewCell.swift */,
+				8D5515652CEB40D9005D7041 /* AlbumFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				8D5515542CE6FA62005D7041 /* AlbumViewController.swift in Sources */,
 				8D5515422CE6F3AE005D7041 /* ViewController.swift in Sources */,
 				8D55153E2CE6F3AE005D7041 /* AppDelegate.swift in Sources */,
+				8D5515662CEB40D9005D7041 /* AlbumFooterView.swift in Sources */,
 				8D5515562CE6FAD2005D7041 /* AlbumViewModel.swift in Sources */,
 				8D5515582CE6FD39005D7041 /* APIService.swift in Sources */,
 				8D5515402CE6F3AE005D7041 /* SceneDelegate.swift in Sources */,
